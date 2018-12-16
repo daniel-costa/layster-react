@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import Button from '@material-ui/core/Button';
 import MainStage from '../MainStage';
 import Light from '../Elements/Light';
 
@@ -18,9 +19,9 @@ class App extends Component {
     return (
       <Fragment>
         <MainStage elements={elements} />
-        <button type="button" onClick={this.addShape}>
-          Add element
-        </button>
+        <Button variant="contained" color="primary" onClick={this.addShape}>
+          Add Element
+        </Button>
       </Fragment>
     );
   }
