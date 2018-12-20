@@ -1,30 +1,47 @@
-import React, { Component, Fragment } from 'react';
-import Button from '@material-ui/core/Button';
-import MainStage from '../MainStage';
-import Light from '../Elements/Light';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { compose } from 'recompose';
+import { withStyles } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
-class App extends Component {
-  state = {
-    elements: [],
-  };
+import { withAuthentication } from '../Session';
+import AppHeader from './AppHeader';
+import AppDrawer from './AppDrawer';
+import LandingPage from '../Landing';
+import SignUpPage from '../SignUp';
+import SignInPage from '../SignIn';
+import PasswordForgetPage from '../PasswordForget';
+import HomePage from '../Home';
+import AccountPage from '../Account';
+import Theme from './Theme';
+import * as ROUTES from '../../constants/routes';
 
-  addShape = () => {
-    this.setState(prevState => ({
-      elements: [...prevState.elements, <Light x={200} y={100} />],
-    }));
-  };
+const App = ({ classes }) => (
+  <Router>
+    <div className={classes.root}>
+      <CssBaseline />
+      <AppHeader />
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Route exact path={ROUTES.LANDING} component={LandingPage} />
+        <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+        <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+        <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+        <Route path={ROUTES.HOME} component={HomePage} />
+        <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+      </main>
+      <AppDrawer />
+    </div>
+  </Router>
+);
 
-  render() {
-    const { elements } = this.state;
-    return (
-      <Fragment>
-        <MainStage elements={elements} />
-        <Button variant="contained" color="primary" onClick={this.addShape}>
-          Add Element
-        </Button>
-      </Fragment>
-    );
-  }
-}
+App.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  classes: PropTypes.object.isRequired,
+};
 
-export default App;
+export default compose(
+  withAuthentication,
+  withStyles(Theme),
+)(App);

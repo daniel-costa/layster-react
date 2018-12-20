@@ -8,11 +8,13 @@
     "node": true
   },
   "rules": {
+    "react/jsx-indent": "off",
     "react/jsx-filename-extension": [
       1,
       {
         "extensions": [".js", ".jsx"]
       }
-    ]
+    ],
+    "no-console": ["warn", { "allow": ["warn", "error", "info"] }]
   }
 }
